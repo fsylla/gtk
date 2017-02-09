@@ -71,7 +71,7 @@ static void draw_test(GtkWidget *widget)
     cr = cairo_create(surface);
 
     cairo_rectangle(cr, 10, 20, 40, 20);
-    cairo_fill(cr);
+   // cairo_fill(cr);
 
     cairo_destroy(cr);
 
