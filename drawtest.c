@@ -62,6 +62,23 @@ static void draw_brush(GtkWidget *widget, gdouble x, gdouble y)
     gtk_widget_queue_draw_area(widget, x - 3, y - 3, 6, 6);
 }
 
+
+static void draw_test(GtkWidget *widget)
+{
+    cairo_t *cr;
+
+    /* Paint to the surface, where we store our state */
+    cr = cairo_create(surface);
+
+    cairo_rectangle(cr, 10, 20, 40, 20);
+    cairo_fill(cr);
+
+    cairo_destroy(cr);
+
+    /* Now invalidate the affected region of the drawing area. */
+    gtk_widget_queue_draw_area(widget, 10, 20, 40, 20);
+}
+
 /* Handle button press events by either drawing a rectangle
  * or clearing the surface, depending on which button was pressed.
  * The ::button-press signal handler receives a GdkEventButton
@@ -79,8 +96,11 @@ static gboolean button_press_event_cb(GtkWidget *widget, GdkEventButton *event, 
     }
     else if (event->button == GDK_BUTTON_SECONDARY)
     {
+/*
         clear_surface();
         gtk_widget_queue_draw(widget);
+ */
+        draw_test(widget);
     }
 
     return TRUE;
