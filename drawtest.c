@@ -71,8 +71,10 @@ static void draw_test(GtkWidget *widget)
     cr = cairo_create(surface);
 
     cairo_rectangle(cr, 10, 20, 40, 20);
-   // cairo_fill(cr);
-
+    cairo_stroke(cr);
+    cairo_move_to(cr, 10, 20);
+    cairo_line_to(cr, 50, 40);
+    cairo_stroke(cr);
     cairo_destroy(cr);
 
     /* Now invalidate the affected region of the drawing area. */
