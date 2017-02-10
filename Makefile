@@ -16,7 +16,7 @@ CFLAGS  = `pkg-config --cflags gtk+-3.0`
 LDFLAGS = `pkg-config --libs gtk+-3.0`
 
 
-TARGETS	= drawtest
+TARGETS	= cairo drawtest
 TESTS	=
 OBJ	=
 DEP	= $(OBJ:.o=.d)
@@ -31,6 +31,9 @@ DEP	= $(OBJ:.o=.d)
 
 all:				$(TARGETS) $(TESTS)
 
+
+cairo:			        cairo.o $(OBJ)
+	$(CC) -o $@ $@.o $(OBJ) $(LDFLAGS)
 
 drawtest:			drawtest.o $(OBJ)
 	$(CC) -o $@ $@.o $(OBJ) $(LDFLAGS)
