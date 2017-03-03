@@ -19,25 +19,25 @@ int main(int argc, char *argv[]) {
   gtk_window_set_default_size(GTK_WINDOW(window), 300, 200);
   gtk_window_set_title(GTK_WINDOW(window), "toolbar");
 
-  vbox = gtk_vbox_new(FALSE, 0);
+  vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
   gtk_container_add(GTK_CONTAINER(window), vbox);
 
   toolbar = gtk_toolbar_new();
   gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
 
-  newTb = gtk_tool_button_new_from_stock(GTK_STOCK_NEW);
+  newTb = gtk_tool_button_new(gtk_image_new_from_icon_name("document-new", GTK_ICON_SIZE_SMALL_TOOLBAR), NULL);
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar), newTb, -1);
 
-  openTb = gtk_tool_button_new_from_stock(GTK_STOCK_OPEN);
+  openTb = gtk_tool_button_new(gtk_image_new_from_icon_name("document-open", GTK_ICON_SIZE_SMALL_TOOLBAR), NULL);
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar), openTb, -1);
 
-  saveTb = gtk_tool_button_new_from_stock(GTK_STOCK_SAVE);
+  saveTb = gtk_tool_button_new(gtk_image_new_from_icon_name("document-save", GTK_ICON_SIZE_SMALL_TOOLBAR), NULL);
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar), saveTb, -1);
 
   sep = gtk_separator_tool_item_new();
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar), sep, -1); 
 
-  exitTb = gtk_tool_button_new_from_stock(GTK_STOCK_QUIT);
+  exitTb = gtk_tool_button_new(gtk_image_new_from_icon_name("application-exit", GTK_ICON_SIZE_SMALL_TOOLBAR), NULL);
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar), exitTb, -1);
 
   gtk_box_pack_start(GTK_BOX(vbox), toolbar, FALSE, FALSE, 5);
@@ -54,5 +54,4 @@ int main(int argc, char *argv[]) {
 
   return 0;
 }
-
 
