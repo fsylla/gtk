@@ -6,17 +6,17 @@
 class ExampleWindow : public Gtk::Window
 {
 public:
-  ExampleWindow();
-  virtual ~ExampleWindow();
+    ExampleWindow();
+    virtual ~ExampleWindow();
 
 protected:
-  //Signal handlers:
-  void on_button_file_clicked();
-  void on_button_folder_clicked();
+    //Signal handlers:
+    void on_button_file_clicked();
+    void on_button_folder_clicked();
 
-  //Child widgets:
-  Gtk::VButtonBox m_ButtonBox;
-  Gtk::Button m_Button_File, m_Button_Folder;
+    //Child widgets:
+    Gtk::VButtonBox m_ButtonBox;
+    Gtk::Button m_Button_File, m_Button_Folder;
 };
 
 #endif //GTKMM_EXAMPLEWINDOW_H
