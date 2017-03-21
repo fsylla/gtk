@@ -59,17 +59,29 @@ bool MyArea::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)
     Gtk::Allocation     allocation      = get_allocation();
     const int           width           = allocation.get_width();
     const int           height          = allocation.get_height();
+    int                 dest_width;
+    int                 dest_height;
     double              scale_width     = (double) width / (double) m_image->get_width();
     double              scale_height    = (double) height / (double) m_image->get_height();
+    double              scale;
+
+    if (scale_width > scale_height) {
+        scale   = scale_height;
+    } else {
+        scale   = scale_width;
+    }
+
+    dest_width   = (int) (scale * (double) m_image->get_width());
+    dest_height  = (int) (scale * (double) m_image->get_height());
 
     image2  = Gdk::Pixbuf::create(Gdk::COLORSPACE_RGB, true, 8, width, height);
 
     image2->fill(0x70707070);
     m_image->scale(image2,
                    0, 0,
-                   width, height,
+                   dest_width, dest_height,
                    0, 0,
-                   scale_width, scale_height,
+                   scale, scale,
                    Gdk::INTERP_BILINEAR);
     
     // Draw the image in the middle of the drawing area, or (if the image is
