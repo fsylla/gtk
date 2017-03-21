@@ -23,14 +23,14 @@
 class MyArea : public Gtk::DrawingArea
 {
 public:
-  MyArea();
-  virtual ~MyArea();
+    MyArea();
+    virtual ~MyArea();
 
 protected:
-  //Override default signal handler:
-  bool on_draw(const Cairo::RefPtr<Cairo::Context>& cr) override;
+    //Override default signal handler:
+    bool on_draw (const Cairo::RefPtr<Cairo::Context>& cr) override;
 
-  Glib::RefPtr<Gdk::Pixbuf> m_image;
+    Glib::RefPtr<Gdk::Pixbuf> m_image;
 };
 
 #endif // GTKMM_EXAMPLE_MYAREA_H
