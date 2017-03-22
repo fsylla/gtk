@@ -71,21 +71,15 @@ bool MyArea::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)
         scale   = scale_width;
     }
 
-    dest_width   = (int) (scale * (double) m_image->get_width());
-    dest_height  = (int) (scale * (double) m_image->get_height());
+    dest_width  = (int) (scale * (double) m_image->get_width());
+    dest_height = (int) (scale * (double) m_image->get_height());
 
-    image2  = Gdk::Pixbuf::create(Gdk::COLORSPACE_RGB, true, 8, width, height);
+    image2      = Gdk::Pixbuf::create(Gdk::COLORSPACE_RGB, true, 8, width, height);
 
     image2->fill(0x70707070);
-    m_image->scale(image2,
-                   0, 0,
-                   dest_width, dest_height,
-                   0, 0,
-                   scale, scale,
-                   Gdk::INTERP_BILINEAR);
+    m_image->scale(image2, 0, 0, dest_width, dest_height,
+                   0, 0, scale, scale, Gdk::INTERP_BILINEAR);
     
-    // Draw the image in the middle of the drawing area, or (if the image is
-    // larger than the drawing area) draw the middle part of the image.
     Gdk::Cairo::set_source_pixbuf(cr, image2, 0, 0);
     cr->paint();
 

@@ -27,7 +27,6 @@ int main(int argc, char** argv)
 
     win.set_title("DrawingArea");
     win.set_default_size(300, 200);
-
     win.add(area);
     area.show();
 
