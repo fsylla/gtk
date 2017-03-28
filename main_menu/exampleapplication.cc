@@ -17,16 +17,19 @@
 #include "examplewindow.h"
 #include <iostream>
 
+
 ExampleApplication::ExampleApplication()
     : Gtk::Application("org.gtkmm.example.main_menu")
 {
     Glib::set_application_name("Main Menu Example");
 }
 
+
 Glib::RefPtr<ExampleApplication> ExampleApplication::create()
 {
     return Glib::RefPtr<ExampleApplication>(new ExampleApplication());
 }
+
 
 void ExampleApplication::on_startup()
 {
@@ -63,16 +66,17 @@ void ExampleApplication::on_startup()
         "      <attribute name='label' translatable='yes'>_File</attribute>"
         "      <section>"
         "        <item>"
-        "          <attribute name='label' translatable='yes'>New _Standard</attribute>"
+        "          <attribute name='label' translatable='yes'>_Open</attribute>"
         "          <attribute name='action'>app.newstandard</attribute>"
-        "          <attribute name='accel'>&lt;Primary&gt;n</attribute>"
+        "          <attribute name='accel'>&lt;Primary&gt;o</attribute>"
         "        </item>"
         "        <item>"
-        "          <attribute name='label' translatable='yes'>New _Foo</attribute>"
+        "          <attribute name='label' translatable='yes'>_Save</attribute>"
         "          <attribute name='action'>app.newfoo</attribute>"
+        "          <attribute name='accel'>&lt;Primary&gt;s</attribute>"
         "        </item>"
         "        <item>"
-        "          <attribute name='label' translatable='yes'>New _Goo</attribute>"
+        "          <attribute name='label' translatable='yes'>_Save as ...</attribute>"
         "          <attribute name='action'>app.newgoo</attribute>"
         "        </item>"
         "      </section>"
@@ -113,44 +117,6 @@ void ExampleApplication::on_startup()
         "      </section>"
         "    </submenu>"
         "  </menu>"
-        ""
-        "  <!-- application menu -->"
-        "  <menu id='appmenu'>"
-        "    <submenu>"
-        "      <attribute name='label' translatable='yes'>_File</attribute>"
-        "      <section>"
-        "        <item>"
-        "          <attribute name='label' translatable='yes'>New _Standard</attribute>"
-        "          <attribute name='action'>app.newstandard</attribute>"
-        "          <attribute name='accel'>&lt;Primary&gt;n</attribute>"
-        "        </item>"
-        "        <item>"
-        "          <attribute name='label' translatable='yes'>New _Foo</attribute>"
-        "          <attribute name='action'>app.newfoo</attribute>"
-        "        </item>"
-        "        <item>"
-        "          <attribute name='label' translatable='yes'>New _Goo</attribute>"
-        "          <attribute name='action'>app.newgoo</attribute>"
-        "        </item>"
-        "      </section>"
-        "      <section>"
-        "        <item>"
-        "          <attribute name='label' translatable='yes'>_Quit</attribute>"
-        "          <attribute name='action'>app.quit</attribute>"
-        "          <attribute name='accel'>&lt;Primary&gt;q</attribute>"
-        "        </item>"
-        "      </section>"
-        "    </submenu>"
-        "    <submenu>"
-        "      <attribute name='label' translatable='yes'>_Help</attribute>"
-        "      <section>"
-        "        <item>"
-        "          <attribute name='label' translatable='yes'>_About</attribute>"
-        "          <attribute name='action'>app.about</attribute>"
-        "        </item>"
-        "      </section>"
-        "    </submenu>"
-        "  </menu>"
         "</interface>";
 
     try
@@ -162,20 +128,16 @@ void ExampleApplication::on_startup()
         std::cerr << "Building menus failed: " << ex.what();
     }
 
-    //Get the menubar and the app menu, and add them to the application:
     auto object = m_refBuilder->get_object("menu-example");
     auto gmenu = Glib::RefPtr<Gio::Menu>::cast_dynamic(object);
-    object = m_refBuilder->get_object("appmenu");
-    auto appMenu = Glib::RefPtr<Gio::Menu>::cast_dynamic(object);
-    if (!(gmenu && appMenu)) {
-        g_warning("GMenu or AppMenu not found");
-    }
-    else
-    {
-        set_app_menu(appMenu);
+
+    if (!gmenu) {
+        g_warning("GMenu not found");
+    } else {
         set_menubar(gmenu);
     }
 }
+
 
 void ExampleApplication::on_activate()
 {
@@ -185,6 +147,7 @@ void ExampleApplication::on_activate()
     // when asked to open a file, if no changes have been made yet.
     create_window();
 }
+
 
 void ExampleApplication::create_window()
 {
@@ -201,15 +164,18 @@ void ExampleApplication::create_window()
     win->show_all();
 }
 
+
 void ExampleApplication::on_window_hide(Gtk::Window* window)
 {
     delete window;
 }
 
+
 void ExampleApplication::on_menu_file_new_generic()
 {
     std::cout << "A File|New menu item was selected." << std::endl;
 }
+
 
 void ExampleApplication::on_menu_file_quit()
 {
@@ -224,11 +190,14 @@ void ExampleApplication::on_menu_file_quit()
     // must remove the window from the application. One way of doing this
     // is to hide the window.
     std::vector<Gtk::Window*> windows = get_windows();
-    if (windows.size() > 0)
+
+    if (windows.size() > 0) {
         windows[0]->hide(); // In this simple case, we know there is only one window.
+    }
 }
 
 void ExampleApplication::on_menu_help_about()
 {
     std::cout << "App|Help|About was selected." << std::endl;
 }
+

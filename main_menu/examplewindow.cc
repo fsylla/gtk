@@ -19,7 +19,7 @@
 
 ExampleWindow::ExampleWindow()
     : Gtk::ApplicationWindow(),
-      m_Box(Gtk::ORIENTATION_VERTICAL)
+      m_Box(Gtk::ORIENTATION_HORIZONTAL)
 {
     set_title("Main menu example");
     set_default_size(300, 100);
@@ -93,10 +93,12 @@ ExampleWindow::ExampleWindow()
 
     Gtk::Toolbar* toolbar = nullptr;
     m_refBuilder->get_widget("toolbar", toolbar);
-    if (!toolbar)
+
+    if (!toolbar) {
         g_warning("GtkToolbar not found");
-    else
+    } else {
         m_Box.pack_start(*toolbar, Gtk::PACK_SHRINK);
+    }
 }
 
 
