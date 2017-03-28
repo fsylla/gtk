@@ -39,17 +39,6 @@ ExampleWindow::ExampleWindow()
   add_action("paste", sigc::mem_fun(*this, &ExampleWindow::on_menu_others));
   add_action("something", sigc::mem_fun(*this, &ExampleWindow::on_menu_others));
 
-  //Choices menus, to demonstrate Radio items,
-  //using our convenience methods for string and int radio values:
-  m_refChoice = add_action_radio_string("choice",
-    sigc::mem_fun(*this, &ExampleWindow::on_menu_choices), "a");
-
-  m_refChoiceOther = add_action_radio_integer("choiceother",
-    sigc::mem_fun(*this, &ExampleWindow::on_menu_choices_other), 1);
-
-  m_refToggle = add_action_bool("sometoggle",
-    sigc::mem_fun(*this, &ExampleWindow::on_menu_toggle), false);
-
   //Help menu:
   add_action("about", sigc::mem_fun(*this, &ExampleWindow::on_menu_others));
 
@@ -110,57 +99,14 @@ ExampleWindow::ExampleWindow()
     m_Box.pack_start(*toolbar, Gtk::PACK_SHRINK);
 }
 
+
 ExampleWindow::~ExampleWindow()
 {
 }
+
 
 void ExampleWindow::on_menu_others()
 {
   std::cout << "A menu item was selected." << std::endl;
 }
 
-void ExampleWindow::on_menu_choices(const Glib::ustring& parameter)
-{
-  //The radio action's state does not change automatically:
-  m_refChoice->change_state(parameter);
-
-  Glib::ustring message;
-  if (parameter == "a")
-    message = "Choice a was selected.";
-  else
-    message = "Choice b was selected.";
-
-  std::cout << message << std::endl;
-}
-
-void ExampleWindow::on_menu_choices_other(int parameter)
-{
-  //The radio action's state does not change automatically:
-  m_refChoiceOther->change_state(parameter);
-
-  Glib::ustring message;
-  if (parameter == 1)
-    message = "Choice 1 was selected.";
-  else
-    message = "Choice 2 was selected.";
-
-  std::cout << message << std::endl;
-}
-
-void ExampleWindow::on_menu_toggle()
-{
-  bool active = false;
-  m_refToggle->get_state(active);
-
-  //The toggle action's state does not change automatically:
-  active = !active;
-  m_refToggle->change_state(active);
-
-  Glib::ustring message;
-  if (active)
-    message = "Toggle is active.";
-  else
-    message = "Toggle is not active.";
-
-  std::cout << message << std::endl;
-}
