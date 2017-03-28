@@ -22,18 +22,14 @@
 class ExampleWindow : public Gtk::ApplicationWindow
 {
 public:
-  ExampleWindow();
-  virtual ~ExampleWindow();
+    ExampleWindow();
+    virtual ~ExampleWindow();
 
 protected:
-  //Signal handlers:
-  void on_menu_others();
-  void on_menu_toggle();
+    void on_menu_others();
 
-  //Child widgets:
-  Gtk::Box m_Box;
-
-  Glib::RefPtr<Gtk::Builder> m_refBuilder;
+    Gtk::Box                    m_Box;
+    Glib::RefPtr<Gtk::Builder>  m_refBuilder;
 };
 
 #endif //GTKMM_EXAMPLEWINDOW_H
